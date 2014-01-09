@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}YJAllen Letters{% endblock %}
+
+{% block content %}
+{% if letters %}
+    <ul>
+    {% for letter in letters %}
+        <li>
+{% if letter.id %}
+<a href="{% url letter_display letter.id %}">{{ letter.title }}</a>  
+{% else %} 
+{{ letter.title }}
+  {% endif %}
+        </li>
+    {% endfor %}
+   </ul>
+{% else %}
+    <p>Nothing found.</p>
+{% endif %} 
+{% endblock %}
+</body>
+</html>

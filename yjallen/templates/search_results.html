@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block title %}Searched Letter{% endblock %}
+{% block content %}
+
+<div class="content">
+
+<div class="title"><a href="{% url "index" %}">Young John Allen Papers</a></div>
+
+<p><b>Search results for texts where:</b></p>
+ <ul class='searchopts'><li>document contains keywords 'allen'</li></ul><?xml version="1.0"?>
+<table class="searchnav"><tr><td/><td/><td><a href="{% url "searchbox" %}?keyword=allen&amp;doctitle=&amp;date=&amp;author=&amp;subject=&amp;&amp;position=21&amp;max=20">
+            Next&gt;
+          </a></td><td><a href="{% url "searchbox" %}?keyword=allen&amp;doctitle=&amp;date=&amp;author=&amp;subject=&amp;&amp;position=77&amp;max=20">
+              Last&gt;&gt;
+            </a></td></tr></table>
+
+{% if server_error %}{{ server_error }}{% endif %}
+
+{% if searchbox.is_valid %}
+<p>{{ letters_paginated.paginator.count }} matches found</p>
+
+<form align="right" id="jumpnav" action="{% url "searchbox" %}">
+<select name="page" onchange="submit();">
+  {% for page in letters_paginated.paginator.page_range %}
+  <option value="{{page}}" selected="selected">{{ letters_paginated.start_index }} - {{letters_paginated.end_index }}</option>
+    {% endfor %}
+</select>
+<input name="keyword" type="hidden" value="{{keyword}}">
+<input name="max" type="hidden" value="20">
+</form>
+
+<table class="browse">
+  <thead style="font-size:small;">
+    <tr>
+      <th class="num">#</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody align="left" valign="top" style="font-size:small;">
+  {% for letter in letters_paginated.object_list %}
+    <tr xmlns:tei="http://www.tei-c.org/ns/1.0">
+      <td class="num" width="4%">{{forloop.counter|add:letters_paginated.start_index|add:-1}}.</td> 
+      <td class="title"><a
+  href="{% url "letter_display" letter.id %}?keyword={{keyword}}">{{ letter.title }}</a></td>
+      <td class="author" width="20%">{{letter.author}}</td>
+      <td class="date" width="25%">{{letter.date}}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+
+{% endblock %}

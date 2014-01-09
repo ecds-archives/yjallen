@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Browse{% endblock %}
+
+{% block content %}
+
+<div class="content">
+{% for letter in letters %}
+<ul class="contents">
+  <li>
+<a href="{% url "letter_display" letter.id %}">{{ letter.title }}</a>  
+  </li>
+</ul>
+{% endfor %}
+</div>
+
+{% endblock %}

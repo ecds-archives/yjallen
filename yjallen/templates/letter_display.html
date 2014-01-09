@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load existdb %}
+
+{% block title %}Letter{% endblock %}
+{% block content %}
+<div class="content"
+  <h2>Young John Allen Documents</h2>
+<p>Go to <a href="{% url "index" %}">Document List</a></p>
+
+{{ format|safe }}
+
+</div>
+{% endblock %}

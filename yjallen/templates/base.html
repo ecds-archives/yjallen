@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+   <title>{% block title %}{% endblock %} - Young John Allen Papers</title>
+   <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/yjallen.css"/>
+</head>
+<body>
+
+<div class="headimage">
+<img class="headimage" src="{{STATIC_URL}}images/1735.jpg" width="216"
+     height="288" alt="Young John Allen"/><img class="headimage" src="{{STATIC_URL}}images/1740.jpg" width="225" height="288" alt="Young John Allen"/>
+<h2 class="subhead">Young John Allen Papers</h2>
+<!--
+<img class="headimage" src="images/title_sm.jpg"  width="600"  height="216"
+       alt="Southern Changes Online"/>
+<img class="covers" src="images/covers_sm.jpg" width="185"
+     height="140" alt="Southern Changes"/> -->
+</div>
+<!--
+<div class="teensub">
+<img class="teensub" src="images/teens_color_browse.jpg" width="500" height="100" alt="Browse"/>
+</div> -->
+<div id="headersearchbox">
+<!-- include this file for searchbox -->
+<form name="keywordsearch" action="{% url "searchbox" %}" method="get"><p
+      class="searchbox"><b>keyword search:</b><input id="key" type="text" size="20" name="keyword"/><input id="go" type='submit' size="20" value='Go'/></p></form>
+</div>
+<div class="subnav">
+<p class="navlinks">
+<a href="{% url "index" %}"><span id="ho">Home</span></a>
+     <a href="{% url "overview" %}"><span id="ov">Overview</span></a>
+<a href={% url "searchbox" %}><span id="se">Search</span></a>
+</p>
+
+{% block content %}
+{% endblock %}
+<div class="externalnav">
+<p class="links" id="beck">
+<a href="http://beck.library.emory.edu/"><span id="bc">The Beck Center</span></a>
+<a href="http://marlbl.library.emory.edu/"><span id="src">Manuscript, Archives, and Rare Book Library</span></a>
+</p>
+</div>
+
+<div class="foot">
+<hr class="foot"/>
+<p class="footnav"><span id="con"><script language="javascript">
+<!--
+var username = "beckctr";
+var hostname = "emory.edu";
+var linktext = "Contact the Beck Center";
+document.write("<a href=" + "mail" + "to:" + username +
+"@" + hostname + ">" + linktext + "</a>")
+//-->
+</script>
+<noscript>Contact the Beck Center: beckctr<img src="images/at.gif" alt=" at "/>emory.edu</noscript></span> | <span id="euc"><a href="http://www.library.emory.edu/">Euclid</a></span> | <span id="ul"><a href="http://www.emory.edu/libraries.cfm">University Libraries</a></span> | <span id="univ"><a href="http://www.emory.edu/">Emory University</a></span></p>
+<p class="footnav"><a href="http://www.tei-c.org/"><img src="http://www.tei-c.org/About/Badges/powered-by-TEI.png" alt="Powered by TEI" border="0"/></a></p>
+</div>
+
+<div class="tracking">
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11023816-12");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</div>
+
+ 
+
+</body>
+</html>
+</body>
+</html>
