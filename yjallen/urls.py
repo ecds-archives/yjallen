@@ -9,12 +9,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
-from yjallen_app.views import index, overview, letter_display, searchbox
+from yjallen_app.views import index, overview, letter_display, searchbox, letter_xml
 
 urlpatterns = patterns('yjallen_app.views',
     url(r'^$', 'index', name='index'),
     url(r'^overview$', 'overview', name='overview'),
     url(r'^(?P<doc_id>[^/]+)$', 'letter_display', name="letter_display"),
+    url(r'^(?P<doc_id>[^/]+)/xml$', 'letter_xml', name="letter_xml"),
     url(r'^search/$', 'searchbox', name='searchbox')
    )
 

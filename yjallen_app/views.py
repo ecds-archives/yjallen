@@ -40,6 +40,15 @@ def letter_display(request, doc_id):
     except DoesNotExist:
         raise Http404
 
+def letter_xml(request, doc_id):
+  "Display xml of a single issue."
+  try:
+    doc =LetterTitle.objects.get(id__exact=doc_id)
+  except:
+    raise Http404
+  tei_xml = doc.serializeDocument(pretty=True)
+  return HttpResponse(tei_xml, mimetype='application/xml')
+
 def searchbox(request):
     "Search letters by title/author/keyword"
     form = LetterSearchForm(request.GET)
