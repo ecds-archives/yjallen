@@ -5,13 +5,20 @@
 {% block content %}
 
 <div class="content">
-{% for letter in letters %}
-<ul class="contents">
+  
+{% for group in groups %}
+<a onClick="$('#{{group.0}}').toggle()"><h3 id="category-label" class ="toggle">{{group.0}}</h3></a>
+  <ul id="{{group.0}}" class="category">
+ {% with "1:" as items %}
+    {% for letter in group|slice:items %}
   <li>
-<a href="{% url "letter_display" letter.id %}">{{ letter.title }}</a>  
-  </li>
+<a href="{% url "letter_display" letter.id %}">{{letter.title}}</a>  
+</li>
+{% endfor %}
+{% endwith %}
 </ul>
 {% endfor %}
+  
 </div>
 
 {% endblock %}

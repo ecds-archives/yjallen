@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+   {% block meta %} {% endblock %}
    <title>{% block title %}{% endblock %} - Young John Allen Papers</title>
    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/yjallen.css"/>
 </head>
@@ -28,7 +29,7 @@
 </div>
 <div class="subnav">
 <p class="navlinks">
-<a href="{% url "index" %}"><span id="ho">Home</span></a>
+<a href="{% url "index" %}"><span id="ho">Letters</span></a>
      <a href="{% url "overview" %}"><span id="ov">Overview</span></a>
 <a href={% url "searchbox" %}><span id="se">Search</span></a>
 </p>

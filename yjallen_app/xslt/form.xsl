@@ -67,7 +67,9 @@
 </xsl:template>
 
 <xsl:template match="tei:address">
-<xsl:value-of select="tei:persName"/><br/><xsl:value-of select="tei:addrLine[1]"/>, <xsl:value-of select="tei:addrLine[2]"/>
+<p>
+<xsl:value-of select="tei:persName"/><br/><xsl:value-of select="tei:addrLine[1]"/><br/> <xsl:value-of select="tei:addrLine[2]"/><br/><xsl:value-of select="tei:addrLine[3]"/>
+</p>
 <xsl:element name="br"/>
 </xsl:template>
 

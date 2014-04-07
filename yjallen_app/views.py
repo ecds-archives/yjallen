@@ -1,6 +1,8 @@
 import os
+import re
 import logging
 from urllib import urlencode
+from datetime import datetime
 
 from django.conf import settings
 from django.shortcuts import render, render_to_response
@@ -17,8 +19,30 @@ from eulexistdb.query import escape_string
 from eulexistdb.exceptions import DoesNotExist # ReturnedMultiple needed also ?
  
 def index(request):
-  letters = LetterTitle.objects.only('id', 'title', 'date').order_by('date')
-  return render_to_response('index.html', {'letters' : letters},context_instance=RequestContext(request))
+  context = {}
+  letters_1 = ['College Years, 1854-1858']
+  letters_2 = ['Early Missionary Experience, 1859-1967']
+  letters_3 = ['Journalism Career, 1868-1882']
+  letters_4 = ['Leadership in Methodist Mission, 1883-1906']
+  letters = LetterTitle.objects.only('id', 'title', 'date', 'date_num').order_by('date_num')
+  for letter in letters:
+      year = re.search(r'\d\d\d\d', letter.date_num).group(0)
+      if int(year) > 1853 and int(year) < 1859:
+        letters_1.append(letter)
+      if int(year) > 1858 and int(year) < 1868:
+        letters_2.append(letter)
+      if int(year) > 1867 and int(year) < 1884:
+        letters_3.append(letter)
+      if int(year) > 1883:
+        letters_4.append(letter)
+  groups = [letters_1, letters_2, letters_3, letters_4]
+
+  context['letters'] = letters
+  context['groups'] = groups
+  context['year'] = year
+  context['letters_1'] = letters_1
+        
+  return render_to_response('index.html', context, context_instance=RequestContext(request))
 
 def overview(request):
   return render_to_response('overview.html', {'overview' : overview}, context_instance=RequestContext(request))
@@ -33,7 +57,7 @@ def letter_display(request, doc_id):
         url_params = ''
         filter = {}
         search_terms = None
-    try:
+    try:              
         letter = LetterTitle.objects.get(id__exact=doc_id)
         format = letter.xsl_transform(filename=os.path.join(settings.BASE_DIR, '..', 'yjallen_app', 'xslt', 'form.xsl'))
         return render_to_response('letter_display.html', {'letter': letter, 'format': format.serialize(), 'search_terms': search_terms}, context_instance=RequestContext(request))
@@ -44,7 +68,7 @@ def letter_xml(request, doc_id):
   "Display xml of a single issue."
   try:
     doc =LetterTitle.objects.get(id__exact=doc_id)
-  except:
+  except: 
     raise Http404
   tei_xml = doc.serializeDocument(pretty=True)
   return HttpResponse(tei_xml, mimetype='application/xml')

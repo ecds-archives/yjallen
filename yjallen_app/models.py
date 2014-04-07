@@ -14,46 +14,23 @@ class LetterTitle(XmlModel, Tei):
     id = StringField('@xml:id')
     text = StringField('tei:text')
     date =  StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/tei:date')
+    date_num =  StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/tei:date/@when')
     title = StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title')
     author =  StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:author/tei:name/tei:choice/tei:reg')
-
+    contributor = StringField('tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:p/tei:address/tei:addrLine')
+    publisher = StringField('tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:publisher')
+    rights = StringField('tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:p')
+    issued_date = StringField('tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:date')
     site_url = 'http://beck.library.emory.edu/yjallen'
+    source_title = StringField('tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:bibl/tei:title')
     project_desc = StringField('tei:teiHeader/tei:encodingDesc/tei:projectDesc')
     geo_coverage = StringField('tei:teiHeader/tei:profileDesc/tei:creation/tei:rs[@type="geography"]')
     creation_date = StringField('tei:teiHeader/tei:profileDesc/tei:creation/tei:date')
     lcsh_subjects = StringListField('tei:teiHeader//tei:keywords[@scheme="#lcsh"]/tei:list/tei:item')
     identifier_ark = StringField('tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type="ark"]')
-    source = StringField('tei:teiHeader/tei:fileDesc/tei:sourceDesc')
+    series = StringField('tei:teiHeader/tei:fileDesc/tei:seriesStmt/tei:title')
+    source = StringField('tei:teiHeader/tei:fileDesc/tei:sourceDesc/tei:bibl')
 
-'''
-    @property
-    def dublin_core(self):
-        dc = DublinCore()
-        dc.title = self.title
-        dc.creator_list.extend([n.reg for n in self.header.author_list])
-        dc.contributor_list.extend([n.reg for n in self.header.editor_list])
-        dc.publisher = self.header.publisher
-        dc.date = self.header.publication_date
-        dc.rights = self.header.availability
-        dc.source = self.header.source_description
-        dc.subject_list.extend(self.lcsh_subjects)
-        dc.description = self.project_desc
-
-        dc.identifier = self.identifier_ark
-
-
-        if self.geo_coverage:
-            dc.coverage_list.append(self.geo_coverage)
-        if self.creation_date:
-            dc.coverage_list.append(self.creation_date)
-
-        if self.header.series_statement:
-            dc.relation_list.append(self.header.series_statement)
-        # FIXME: should we also include url? site name & url are currently
-        # hard-coded when setting dc:relation in postcard ingest
-
-        return dc
-'''
 
 class Letter(XmlModel, TeiDiv):
     ROOT_NAMESPACES = {'tei' : TEI_NAMESPACE} 
