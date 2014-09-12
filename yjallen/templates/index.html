@@ -12,7 +12,7 @@
  {% with "1:" as items %}
     {% for letter in group|slice:items %}
   <li>
-<a href="{% url "letter_display" letter.id %}">{{letter.title}}</a>  
+<a href="{% url "letter_display" letter.id %}">{{letter.title|cut:", an electronic edition"}}</a>  
 </li>
 {% endfor %}
 {% endwith %}

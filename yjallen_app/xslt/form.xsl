@@ -27,6 +27,11 @@
     </div>
 </xsl:template>
 
+<!-- mark exist matches for highlighting -->
+  <xsl:template match="exist:match">
+    <span class="match"><xsl:apply-templates/></span>
+  </xsl:template>
+
   <xsl:template match="//tei:pb">
     <xsl:if test="ancestor::tei:p | ancestor::tei:back"><br/></xsl:if>
     <xsl:element name="a">

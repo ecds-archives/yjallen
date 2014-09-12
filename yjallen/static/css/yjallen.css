@@ -67,6 +67,9 @@ span#ov {padding: 0 1em;}
 span#br {padding: 0 1em;}
 span#se {padding: 0 1em;}
 
+span.exist-match { font-weight:bold; background-color:#B5D5FF; }
+
+
 div.teenimage {position: static;
               margin-top: 3em;
               margin-bottom: 3em;}

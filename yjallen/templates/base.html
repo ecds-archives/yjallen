@@ -8,32 +8,22 @@
 </head>
 <body>
 
-<div class="headimage">
-<img class="headimage" src="{{STATIC_URL}}images/1735.jpg" width="216"
-     height="288" alt="Young John Allen"/><img class="headimage" src="{{STATIC_URL}}images/1740.jpg" width="225" height="288" alt="Young John Allen"/>
-<h2 class="subhead">Young John Allen Papers</h2>
-<!--
-<img class="headimage" src="images/title_sm.jpg"  width="600"  height="216"
-       alt="Southern Changes Online"/>
-<img class="covers" src="images/covers_sm.jpg" width="185"
-     height="140" alt="Southern Changes"/> -->
+{% block image %}{% endblock %}
+
+<div class="subnav">
+<p class="navlinks">
+     <a href="{% url "overview" %}"><span id="ov">Overview</span></a>
+  <a href="{% url "index" %}"><span id="ho">Letters</span></a>
+<a href={% url "searchbox" %}><span id="se">Search</span></a>
+</p>
 </div>
-<!--
-<div class="teensub">
-<img class="teensub" src="images/teens_color_browse.jpg" width="500" height="100" alt="Browse"/>
-</div> -->
-<div id="headersearchbox">
+  
 <!-- include this file for searchbox -->
 <form name="keywordsearch" action="{% url "searchbox" %}" method="get"><p
       class="searchbox"><b>keyword search:</b><input id="key" type="text" size="20" name="keyword"/><input id="go" type='submit' size="20" value='Go'/></p></form>
 </div>
-<div class="subnav">
-<p class="navlinks">
-<a href="{% url "index" %}"><span id="ho">Letters</span></a>
-     <a href="{% url "overview" %}"><span id="ov">Overview</span></a>
-<a href={% url "searchbox" %}><span id="se">Search</span></a>
-</p>
 
+  
 {% block content %}
 {% endblock %}
 <div class="externalnav">

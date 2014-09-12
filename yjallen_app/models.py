@@ -1,3 +1,5 @@
+import re
+
 from django.utils.safestring import mark_safe
 from django.db import models
 from eulexistdb.manager import Manager
@@ -8,14 +10,18 @@ from eulxml.xmlmap.core import XmlObject
 from eulxml.xmlmap.fields import StringField, NodeField, StringListField, NodeListField, IntegerField
 from eulxml.xmlmap.teimap import Tei, TeiDiv, TEI_NAMESPACE
 
-class LetterTitle(XmlModel, Tei):
+class LetterTitle(XmlModel, XmlObject):
     ROOT_NAMESPACES = {'tei' : TEI_NAMESPACE}
     objects = Manager('/tei:TEI')
     id = StringField('@xml:id')
     text = StringField('tei:text')
     date =  StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/tei:date')
-    date_num =  StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title/tei:date/@when')
+    date_num =  StringField('//tei:titleStmt/tei:title/tei:date/@when')
+    
+    #year = StringField('substring(//tei:titleStmt/tei:title/tei:date/@when,1,4)')
+    
     title = StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:title')
+    head = StringField('//tei:text/tei:body/tei:div/tei:head')
     author =  StringField('tei:teiHeader/tei:fileDesc/tei:titleStmt/tei:author/tei:name/tei:choice/tei:reg')
     contributor = StringField('tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:p/tei:address/tei:addrLine')
     publisher = StringField('tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:publisher')

@@ -24,7 +24,7 @@ def index(request):
   letters_2 = ['Early Missionary Experience, 1859-1967']
   letters_3 = ['Journalism Career, 1868-1882']
   letters_4 = ['Leadership in Methodist Mission, 1883-1906']
-  letters = LetterTitle.objects.only('id', 'title', 'date', 'date_num').order_by('date_num')
+  letters = LetterTitle.objects.only('id', 'head', 'title', 'date', 'date_num').order_by('date_num')
   for letter in letters:
       year = re.search(r'\d\d\d\d', letter.date_num).group(0)
       if int(year) > 1853 and int(year) < 1859:
@@ -58,7 +58,7 @@ def letter_display(request, doc_id):
         filter = {}
         search_terms = None
     try:              
-        letter = LetterTitle.objects.get(id__exact=doc_id)
+        letter = LetterTitle.objects.filter(**filter).get(id__exact=doc_id)
         format = letter.xsl_transform(filename=os.path.join(settings.BASE_DIR, '..', 'yjallen_app', 'xslt', 'form.xsl'))
         return render_to_response('letter_display.html', {'letter': letter, 'format': format.serialize(), 'search_terms': search_terms}, context_instance=RequestContext(request))
     except DoesNotExist:
