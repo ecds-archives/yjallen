@@ -3,6 +3,9 @@ import re
 import logging
 from urllib import urlencode
 from datetime import datetime
+import tempfile, zipfile
+from django.core.servers.basehttp import FileWrapper
+import mimetypes
 
 from django.conf import settings
 from django.shortcuts import render, render_to_response
@@ -111,4 +114,19 @@ def searchbox(request):
        
     if response_code is not None:
         response.status_code = response_code
+    return response
+
+def send_file(request, basename):
+    if basename == 'yja_letters':
+        extension = '.zip'
+    else:
+        extension = '.txt'
+    filepath = 'static/txt/' + re.sub(r'\.\d\d\d', '', basename ) + extension
+    filename  = os.path.join(settings.BASE_DIR, filepath )
+    download_name = basename + extension
+    wrapper      = FileWrapper(open(filename))
+    content_type = mimetypes.guess_type(filename)[0]
+    response     = HttpResponse(wrapper,content_type=content_type)
+    response['Content-Length']      = os.path.getsize(filename)    
+    response['Content-Disposition'] = "attachment; filename=%s"%download_name
     return response

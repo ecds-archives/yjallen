@@ -9,7 +9,7 @@ admin.autodiscover()
 
 from yjallen_app.models import LetterTitle
 #from yjallen_app.sitemaps import LetterSitemap
-from yjallen_app.views import index, overview, letter_display, searchbox, letter_xml
+from yjallen_app.views import index, overview, letter_display, searchbox, letter_xml, send_file
 
 # info_dict = {
 #   'queryset': LetterTitle.objects.all(),
@@ -25,6 +25,7 @@ urlpatterns = patterns('yjallen_app.views',
     url(r'^(?P<doc_id>[^/]+)$', 'letter_display', name="letter_display"),
     url(r'^(?P<doc_id>[^/]+)/xml$', 'letter_xml', name="letter_xml"),
     url(r'^search/$', 'searchbox', name='searchbox'),
+    url(r'^(?P<basename>[^/]+)/download$', 'send_file', name='send_file'),
     #url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
    )
 
