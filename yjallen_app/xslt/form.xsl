@@ -44,7 +44,7 @@
 
 <xsl:template match="tei:head">
   <xsl:element name="h2">  
-    <xsl:value-of select="substring-before(substring-after(., '['), ']')"/>
+    <xsl:value-of select="."/>
   </xsl:element>
 </xsl:template>
 
