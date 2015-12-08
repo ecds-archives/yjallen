@@ -23,10 +23,12 @@ from eulexistdb.exceptions import DoesNotExist # ReturnedMultiple needed also ?
  
 def index(request):
   context = {}
-  letters_1 = ['College Years, 1854-1858']
-  letters_2 = ['Early Missionary Experience, 1859-1967']
-  letters_3 = ['Journalism Career, 1868-1882']
-  letters_4 = ['Leadership in Methodist Mission, 1883-1906']
+  labels = {}
+  letters_1 = ['College']
+  letters_2 = ['Missionary']
+  letters_3 = ['Journalism']
+  letters_4 = ['Leadership']
+  labels = {'College':'College Years, 1854-1858', 'Missionary':'Early Missionary Experience, 1859-1967', 'Journalism':'Journalism Career, 1868-1882', 'Leadership':'Leadership in Methodist Mission, 1883-1906'}
   letters = LetterTitle.objects.only('id', 'head', 'title', 'date', 'date_num').order_by('date_num')
   for letter in letters:
       year = re.search(r'\d\d\d\d', letter.date_num).group(0)
@@ -44,6 +46,8 @@ def index(request):
   context['groups'] = groups
   context['year'] = year
   context['letters_1'] = letters_1
+  context['labels'] = labels
+
         
   return render_to_response('index.html', context, context_instance=RequestContext(request))
 

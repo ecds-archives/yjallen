@@ -1,35 +1,109 @@
+{% load static %} {% load eultheme %}
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
-<html>
+<html lang="en" xmlns:schema="http://schema.org/" xmlns:og="http://ogp.me/ns#">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
    {% block meta %} {% endblock %}
    <title>{% block title %}{% endblock %} - Young John Allen Papers</title>
-   <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/yjallen.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block metadata %}{% endblock %}
+
+    {% block favicon %}
+    <link id="siteFavIcon" rel="shortcut icon" type="image/x-icon" href="{% static 'eultheme/img/favicon.ico' %}">
+    {% endblock %}
+    <!-- Bootstrap -->
+    <link href="{% static 'eultheme/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'eultheme/css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'eultheme/css/selectize.css' %}" rel="stylesheet"/>
+    <link href="{% static 'eultheme/css/eultheme.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/yjallen.css"/>
+    {% if EULTHEME_NO_EXTERNAL_JS %}  {# use local copy when requested #}
+    <script src="{% static 'eultheme/js/jquery.min.js' %}"></script>
+    {% else %}
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    {% endif %}
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'eultheme/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'eultheme/js/selectize.js' %}"></script>
+    <script src="{% static 'eultheme/js/eultheme.js' %}"></script>
 </head>
 <body>
 
 {% block image %}{% endblock %}
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar-header logo-container">
+          <div class="logo">
+            <img src="{% static 'eultheme/img/EmoryHz_EUVt_hero_white.png' %}"/>
+          </div>
 
-<div class="subnav">
-<p class="navlinks">
-     <a href="{% url "overview" %}"><span id="ov">Overview</span></a>
-  <a href="{% url "index" %}"><span id="ho">Letters</span></a>
-<a href={% url "searchbox" %}><span id="se">Search</span></a>
-</p>
+          {# the following is the title that appears on the top nav for XS screen sizes. it uses the xs-nav-title block #}
+          <div class="visible-xs">
+            <h1 class="site-title"><a href="{% url 'index' %}">
+              {% block xs-nav-title %}{% endblock %}
+            </a></h1>
+          </div>
+          {# end xs-title markup #}
+
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="container">
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a class="site-title" href="{% url 'index' %}">{% block nav-title %}The Young John Allen Papers{% endblock %}</a></li>
+                  <li><a href="{% url "overview" %}"><span id="ov">Overview</span></a></li>
+                  <li><a href="{% url "index" %}"><span id="ho">Letters</span></a></li>
+                  <li><a href={% url "searchbox" %}><span id="se">Search</span></a></li>
+            </ul>
+
+            {% block navbar-extra %}
+                        <div class="navbar-right">
+<form name="keywordsearch" class="form-inline navbar-form" role="form" method="GET" action="{% url 'searchbox' %}">
+   <div class="form-group">
+      <div class="input-group">
+	<label class="sr-only" for="keywordsearch">Keyword</label>
+      <input class="form-control" id="key" type="text" name="keyword" placeholder="Search Keywords"/>
+      {# TODO: help text #}
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-default">
+            Go
+        </button>
+      </span>
+    </div>
+  </div>
+</form>
+</div>{% endblock %}
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+
+
+ <div class="page-header">
+ <div class="container-fluid">
+    <!--img class="headimage" src="http://beck.library.emory.edu/oxfordexperience/web/images/oxexhead.jpg" alt="Oxford
+ College" width='473' height='288'/-->
+   <img class="img-responsive" src="{{ STATIC_URL }}images/1735.jpg" alt="Oxford
+ College" align="left"/>
+    <img class="img-responsive" src="{{ STATIC_URL }}images/1740.jpg" alt="Oxford
+ College" align="right"/>
+ <h1><font color="#646C81"><br>Stuart A. Rose: Manuscript, Archives, and Rare Book Library<br><br>The Young John Allen Papers</font></h1>
 </div>
-  
-<!-- include this file for searchbox -->
-<form name="keywordsearch" action="{% url "searchbox" %}" method="get"><p
-      class="searchbox"><b>keyword search:</b><input id="key" type="text" size="20" name="keyword"/><input id="go" type='submit' size="20" value='Go'/></p></form>
 </div>
 
-  
+<div class="container">
 {% block content %}
 {% endblock %}
+</div>
 <div class="externalnav">
 <p class="links" id="beck">
 <a href="http://beck.library.emory.edu/"><span id="bc">The Beck Center</span></a>
-<a href="http://marlbl.library.emory.edu/"><span id="src">Manuscript, Archives, and Rare Book Library</span></a>
+<a href="http://rose.library.emory.edu/"><span id="src">Stuart A. Rose: Manuscript, Archives, and Rare Book Library</span></a>
 </p>
 </div>
 
