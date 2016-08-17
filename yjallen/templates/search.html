@@ -6,7 +6,13 @@
 <table name="searchtable">
 <tr><td>
 <h2>Search</h2>
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages|slice:":1" %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><font color="red">{{ message }}</font></li>
+    {% endfor %}
+</ul>
+{% endif %}
 <form name="articlequery" action="{% url "searchbox" %}" method="get">
 <table class="searchform" border="0">
 <tr><th>Keyword</th><td class="input"><input type="text" size="40" name="keyword" value=""></td></tr>
